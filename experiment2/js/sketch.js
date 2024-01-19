@@ -1,67 +1,100 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+var backColor = -10; var changeRate = 1;
+var change = true
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+var x, y;
+var dirChange;
+var xDir, yDir; //current direction
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
+var circleW, circleH;
+var sizeChange;
+var wDir, hDir; //current growth direction
 
-// Globals
-let myInstance;
-let canvasContainer;
+var circleColor = 255;
 
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
-
-// setup() function is called once when the program starts
 function setup() {
-    // place our canvas, making it fit our container
-    canvasContainer = $("#canvas-container");
-    let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-    canvas.parent("canvas-container");
-    // resize canvas is the page is resized
-    $(window).resize(function() {
-        console.log("Resizing...");
-        resizeCanvas(canvasContainer.width(), canvasContainer.height());
-    });
-    // create an instance of the class
-    myInstance = new MyClass(VALUE1, VALUE2);
-
-    var centerHorz = windowWidth / 2;
-    var centerVert = windowHeight / 2;
+  createCanvas(600, 600);
+  x = random(width);
+  y = random(height);
+  circleW = random(30, 60);
+  circleH = random(30, 60);
+  
+  xDir = random(-1, 1);
+  yDir = random(-1, 1);
+  
+  wDir = random(-1, 1);
+  hDir = random(-1, 1);
 }
 
-// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-    background(220);    
-    // call a method on the instance
-    myInstance.myMethod();
-
-    // Put drawings here
-    var centerHorz = canvasContainer.width() / 2 - 125;
-    var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p5*", centerHorz + 10, centerVert + 200);
+  background(backColor);
+  stroke(circleColor)
+  ColorChange();
+  DirectionChange(40);
+  SizeChange(15);
+  fill(circleColor, circleColor, circleColor);
+  ellipse(x, y, circleW, circleH);
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+function ColorChange(){ //changes color of background and circle
+  backColor += changeRate;
+  circleColor -= changeRate;
+  if(backColor < 265 && change){ //if background not white, increase color
+    changeRate = 0.7;
+  }
+  else{
+    changeRate = -0.7;
+    change = false;
+    if(backColor <= -10){
+      change = true;
+    }
+  }
+}
+
+function DirectionChange(changeRate){ //change direction of circle
+  if(dirChange > 0){
+    let tempX = x + random(1, 3) * xDir;
+    if(tempX < width - 10 && tempX > 10){ //make sure it does not go outside
+      x = tempX
+    }
+    let tempY = y + random(1, 3) * yDir;
+    if(tempY < height - 10 && tempY > 10){
+      y = tempY
+    }
+    dirChange--;
+  }
+  else{
+    dirChange = changeRate;
+    xDir = random(-1, 1);
+    yDir = random(-1, 1);
+    MouseInfluence(0.5);
+  }
+}
+
+function SizeChange(changeRate){ //change size of circle
+  if(sizeChange > 0){
+    circleW += random(1, 3) * wDir;
+    circleH += random(1, 3) * hDir;
+    sizeChange--;
+  }
+  else{
+    sizeChange = changeRate;
+    wDir = random(-1, 1);
+    hDir = random(-1, 1);
+  }
+}
+
+function MouseInfluence(influence){
+  if(mouseX < x){
+    xDir -= influence;
+  }
+  else if(mouseX > x){
+    xDir += influence;
+  }
+  
+  if(mouseY < y){
+    yDir -= influence;
+  }
+  else if(mouseY > y){
+    yDir += influence;
+  }
 }
