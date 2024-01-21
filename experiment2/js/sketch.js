@@ -1,100 +1,148 @@
-var backColor = -10; var changeRate = 1;
-var change = true
+// P_2_2_3_01
+//
+// Generative Gestaltung – Creative Coding im Web
+// ISBN: 978-3-87439-902-9, First Edition, Hermann Schmidt, Mainz, 2018
+// Benedikt Groß, Hartmut Bohnacker, Julia Laub, Claudius Lazzeroni
+// with contributions by Joey Lee and Niels Poldervaart
+// Copyright 2018
+//
+// http://www.generative-gestaltung.de
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-var x, y;
-var dirChange;
-var xDir, yDir; //current direction
+/**
+ * form mophing process by connected random agents
+ *
+ * MOUSE
+ * click               : clear screen
+ * position x/y        : direction of floating
+ *
+ * KEYS
+ * DOWN                : decrease edges
+ * UP                  : increase edges
+ * LEFT                : decrease stepSize
+ * RIGHT               : increase stepSize
+ */
+'use strict';
 
-var circleW, circleH;
-var sizeChange;
-var wDir, hDir; //current growth direction
+var formResolution = 15;
+var stepSize = 2;
+var initRadius = 100;
+var centerX;
+var centerY;
+var x = [];
+var y = [];
 
-var circleColor = 255;
+var filled = false;
+var freeze = false;
 
 function setup() {
-  createCanvas(600, 600);
-  x = random(width);
-  y = random(height);
-  circleW = random(30, 60);
-  circleH = random(30, 60);
-  
-  xDir = random(-1, 1);
-  yDir = random(-1, 1);
-  
-  wDir = random(-1, 1);
-  hDir = random(-1, 1);
+  createCanvas(windowWidth, windowHeight);
+
+  // init shape
+  centerX = width / 2;
+  centerY = height / 2;
+  var angle = radians(360 / formResolution);
+  for (var i = 0; i < formResolution; i++) {
+    x.push(cos(angle * i) * initRadius);
+    y.push(sin(angle * i) * initRadius);
+  }
+
+  //stroke(0, 50);
+  strokeWeight(0.75);
+  background(255);
 }
 
 function draw() {
-  background(backColor);
-  stroke(circleColor)
-  ColorChange();
-  DirectionChange(40);
-  SizeChange(15);
-  fill(circleColor, circleColor, circleColor);
-  ellipse(x, y, circleW, circleH);
+  stroke(mouseX, mouseY, random(mouseX, mouseY) / 2);
+  // floating towards mouse position
+  centerX += (mouseX - centerX) * 0.02;
+  centerY += (mouseY - centerY) * 0.02;
+
+  // calculate new points
+  for (var i = 0; i < formResolution; i++) {
+    x[i] += random(-stepSize, stepSize);
+    y[i] += random(-stepSize, stepSize);
+    // uncomment the following line to show position of the agents
+    // ellipse(x[i] + centerX, y[i] + centerY, 5, 5);
+  }
+
+  if (filled) {
+    fill(random(255), random(255), random(255));
+  } else {
+    noFill();
+  }
+
+  beginShape();
+  // first controlpoint
+  curveVertex(x[formResolution - 1] + centerX, y[formResolution - 1] + centerY);
+
+  // only these points are drawn
+  for (var i = 0; i < formResolution; i++) {
+    curveVertex(x[i] + centerX, y[i] + centerY);
+  }
+  curveVertex(x[0] + centerX, y[0] + centerY);
+
+  // end controlpoint
+  curveVertex(x[1] + centerX, y[1] + centerY);
+  endShape();
 }
 
-function ColorChange(){ //changes color of background and circle
-  backColor += changeRate;
-  circleColor -= changeRate;
-  if(backColor < 265 && change){ //if background not white, increase color
-    changeRate = 0.7;
-  }
-  else{
-    changeRate = -0.7;
-    change = false;
-    if(backColor <= -10){
-      change = true;
-    }
-  }
-}
-
-function DirectionChange(changeRate){ //change direction of circle
-  if(dirChange > 0){
-    let tempX = x + random(1, 3) * xDir;
-    if(tempX < width - 10 && tempX > 10){ //make sure it does not go outside
-      x = tempX
-    }
-    let tempY = y + random(1, 3) * yDir;
-    if(tempY < height - 10 && tempY > 10){
-      y = tempY
-    }
-    dirChange--;
-  }
-  else{
-    dirChange = changeRate;
-    xDir = random(-1, 1);
-    yDir = random(-1, 1);
-    MouseInfluence(0.5);
-  }
-}
-
-function SizeChange(changeRate){ //change size of circle
-  if(sizeChange > 0){
-    circleW += random(1, 3) * wDir;
-    circleH += random(1, 3) * hDir;
-    sizeChange--;
-  }
-  else{
-    sizeChange = changeRate;
-    wDir = random(-1, 1);
-    hDir = random(-1, 1);
-  }
-}
-
-function MouseInfluence(influence){
-  if(mouseX < x){
-    xDir -= influence;
-  }
-  else if(mouseX > x){
-    xDir += influence;
-  }
+function keyReleased() {
+  if (key == '1') filled = false;
+  if (key == '2') filled = true;
   
-  if(mouseY < y){
-    yDir -= influence;
+  if(keyCode == DOWN_ARROW && formResolution > 2){
+    formResolution--;
   }
-  else if(mouseY > y){
-    yDir += influence;
+  if(keyCode == UP_ARROW && formResolution < 15){
+    formResolution++;
+  }
+  if(keyCode == LEFT_ARROW && stepSize > 1){
+    stepSize--;
+  }
+  if(keyCode == RIGHT_ARROW){
+    stepSize++;
   }
 }
+
+function mousePressed() {
+   clear(); 
+}
+
+
+/*
+function mousePressed() {
+  // init shape on mouse position
+  centerX = mouseX;
+  centerY = mouseY;
+  var angle = radians(360 / formResolution);
+  var radius = initRadius * random(0.5, 1);
+  for (var i = 0; i < formResolution; i++) {
+    x[i] = cos(angle * i) * initRadius;
+    y[i] = sin(angle * i) * initRadius;
+  }
+}
+
+function keyReleased() {
+  if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
+  if (keyCode == DELETE || keyCode == BACKSPACE) background(255);
+  if (key == '1') filled = false;
+  if (key == '2') filled = true;
+
+  // pauze/play draw loop
+  if (key == 'f' || key == 'F') freeze = !freeze;
+  if (freeze) {
+    noLoop();
+  } else {
+    loop();
+  }
+}
+*/
