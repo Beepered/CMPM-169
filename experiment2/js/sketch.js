@@ -61,7 +61,7 @@ function setup() {
 }
 
 function draw() {
-  stroke(mouseX, mouseY, random(mouseX, mouseY) / 2);
+  stroke(mouseX, mouseY, mouseX / mouseY);
   // floating towards mouse position
   centerX += (mouseX - centerX) * 0.02;
   centerY += (mouseY - centerY) * 0.02;
@@ -116,33 +116,3 @@ function keyReleased() {
 function mousePressed() {
    clear(); 
 }
-
-
-/*
-function mousePressed() {
-  // init shape on mouse position
-  centerX = mouseX;
-  centerY = mouseY;
-  var angle = radians(360 / formResolution);
-  var radius = initRadius * random(0.5, 1);
-  for (var i = 0; i < formResolution; i++) {
-    x[i] = cos(angle * i) * initRadius;
-    y[i] = sin(angle * i) * initRadius;
-  }
-}
-
-function keyReleased() {
-  if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
-  if (keyCode == DELETE || keyCode == BACKSPACE) background(255);
-  if (key == '1') filled = false;
-  if (key == '2') filled = true;
-
-  // pauze/play draw loop
-  if (key == 'f' || key == 'F') freeze = !freeze;
-  if (freeze) {
-    noLoop();
-  } else {
-    loop();
-  }
-}
-*/
