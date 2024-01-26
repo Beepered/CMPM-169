@@ -1,67 +1,66 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+// M_1_3_01
+//
+// Generative Gestaltung – Creative Coding im Web
+// ISBN: 978-3-87439-902-9, First Edition, Hermann Schmidt, Mainz, 2018
+// Benedikt Groß, Hartmut Bohnacker, Julia Laub, Claudius Lazzeroni
+// with contributions by Joey Lee and Niels Poldervaart
+// Copyright 2018
+//
+// http://www.generative-gestaltung.de
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+/**
+ * draws a chart based on noise values.
+ *
+ * MOUSE
+ * position x          : specify noise input range
+ * click               : new noise line
+ *
+ * KEYS
+ * s                   : save png
+ */
+'use strict';
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
+var sketch = function(p) {
 
-// Globals
-let myInstance;
-let canvasContainer;
+  p.setup = function() {
+    p.createCanvas(1024,400);
+    p.strokeWeight(5);
+    p.strokeJoin(p.ROUND);
+  };
 
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
+  p.draw = function() {
+    p.background(255);
 
-    myMethod() {
-        // code to run when method is called
-    }
-}
+    // line
+    p.stroke(p.mouseX / 4, p.mouseY / 1.6, Math.sqrt((p.mouseX / 4) ** 2 + (p.mouseY / 1.6) ** 2));
+    p.noFill();
 
-// setup() function is called once when the program starts
-function setup() {
-    // place our canvas, making it fit our container
-    canvasContainer = $("#canvas-container");
-    let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-    canvas.parent("canvas-container");
-    // resize canvas is the page is resized
-    $(window).resize(function() {
-        console.log("Resizing...");
-        resizeCanvas(canvasContainer.width(), canvasContainer.height());
-    });
-    // create an instance of the class
-    myInstance = new MyClass(VALUE1, VALUE2);
+    var noiseXRange = p.mouseX / 10;
+    
+    //console.log('noiseXRange: 0 - ' + noiseXRange);
+    p.beginShape();
+    for (var x = 0; x < p.width; x += 10) {
+      var noiseX = p.map(x, 50, p.width, 50, noiseXRange);
+      var y = p.noise(noiseX, p.frameCount * 0.01) * p.height;
+      p.vertex(x,y);
+    };
+    p.endShape();
 
-    var centerHorz = windowWidth / 2;
-    var centerVert = windowHeight / 2;
-}
+  };
 
-// draw() function is called repeatedly, it's the main animation loop
-function draw() {
-    background(220);    
-    // call a method on the instance
-    myInstance.myMethod();
+  p.mousePressed = function() {
+    p.noiseSeed(p.random(100000));
+  };
 
-    // Put drawings here
-    var centerHorz = canvasContainer.width() / 2 - 125;
-    var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p5*", centerHorz + 10, centerVert + 200);
-}
+};
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
-}
+var myp5 = new p5(sketch);
