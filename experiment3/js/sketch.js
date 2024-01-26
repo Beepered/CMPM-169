@@ -52,6 +52,27 @@ var sketch = function(p) {
       var noiseX = p.map(x, 50, p.width, 50, noiseXRange);
       var y = p.noise(noiseX, p.frameCount * 0.01) * p.height;
       p.vertex(x,y);
+      p.vertex(x + 20,y + 20);
+    };
+    p.endShape();
+    
+    p.stroke(p.mouseX / 6, p.mouseY / 3, Math.sqrt((p.mouseX / 4) ** 2 + (p.mouseY / 1.6) ** 2));
+    p.beginShape();
+    for (var x = 0; x < p.width; x += 10) {
+      var noiseX = p.map(x, 50, p.width, 50, noiseXRange);
+      var y = p.noise(noiseX, p.frameCount * 0.01) * p.height;
+      p.vertex(x + 30,y + 30);
+      p.vertex(x + 50,y + 50);
+    };
+    p.endShape();
+    
+    p.stroke(p.mouseX / 8, p.mouseY / 6, Math.sqrt((p.mouseX / 4) ** 2 + (p.mouseY / 1.6) ** 2));
+    p.beginShape();
+    for (var x = 0; x < p.width; x += 10) {
+      var noiseX = p.map(x, 50, p.width, 50, noiseXRange);
+      var y = p.noise(noiseX, p.frameCount * 0.01) * p.height;
+      p.vertex(x + 60,y + 60);
+      p.vertex(x + 80,y + 80);
     };
     p.endShape();
 
