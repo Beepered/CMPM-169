@@ -3,6 +3,7 @@ let img
 function setup() {
   createCanvas(650, 500);
 
+  getAudioContext().suspend();
   // Create an Audio input
   mic = new p5.AudioIn();
 
@@ -44,5 +45,9 @@ function draw() {
   img_width = img.width + (vol * 300)
   img_height = img.height + (vol * 750)
   tint(255, 255);
-  image(img, (width / 2) - img_width / 2, h - img_height, img_width, img_height);
+  image(img, (width / 2) - img_width / 2, h - img_height, img_width, img_height)
+}
+
+function mousePressed() {
+  userStartAudio();
 }
