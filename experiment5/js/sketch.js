@@ -140,6 +140,7 @@ function keyReleased() {
   if (key == '2'){
      which_type = 1;
      backgroundColor = 100;
+	 background(backgroundColor);
   }
 }
 
