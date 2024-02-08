@@ -56,6 +56,10 @@
 					<li>I saw that even though the box was small, the particles would stay the same so I linked the particle initial velocity to the box size. Big box = big velocity, small box = small velocity</li>
 					<li>I also connected the size of the particles and how many particles spawn to the box size. I also had to add a check to make sure box size was not in the negative or else no particles would spawn.</li>
 					<li>I saw that there were 2 "for loops" with the same parameters and combined them, which made the particles "fizzle out", but it looked cool so I kept it. I also made the particles shrink over time</li>
+					<li>I figured that it was not unique enough so I decided to try to make a fire with it. I wanted to keep the explosion so I made it its own "mode".</li>
+					<li>The fire particle goes upwards instead of outwards, lasts longer, does not use box size, and the box is always shrinking because it is being burned.</li>
+					<li>The fire is spawning every 40 ticks and sometimes a particle fires downwards (I don't know how). I also accidentally made the background not refresh and it made streaks which looked cool so I kept it for the fire.</li>
+					<li>I made the "1" button do the explosion and change the background color so that you know it is on explosion. "2" button does fire and has its own background color.</li>
 				</ul>
 			</div>
 
@@ -63,15 +67,20 @@
 				<h2>Reflection</h2>
 				<ul>
 					<li>I did everything on my own again, like usual.</li>
-					<li>It was not that hard (I finished almost everything in 1 hour).</li>
-					<li>It does not feel too different from the original, but I did not know how to make it more different without just changing everything and not focusing on particles or doing something very difficult.</li>
+					<li>It was not that hard (I finished almost everything in 1 hour), then got the fire in another hour.</li>
 					<li>I wanted some way for the particles to follow the mouse, but that would be too hard.</li>
+					<li>I added the fire because it would have been too similar to the previous version.</li>
+					<li>The fire does not "look" like a fire because of the spread, but I like the look because it shows the smear of the fire more.</li>
 				</ul>
 			</div>
 
 			<div class="minor-section">
 				<h2>Results</h2>
-				Click to explode the box. Hold down the mouse to grow the box.
+				<ul>
+					<li>Press "1" to use explosions: Click to explode the box.</li>
+					<li>Press "2" to use fire: Clicking does not do anything unless you hold down the mouse</li>
+				</ul>
+				Hold down the mouse to grow the box. Move the mouse to rotate the canvas.
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
