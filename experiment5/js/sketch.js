@@ -4,7 +4,7 @@ let inflating = false;
 
 function setup() {
 	angleMode(DEGREES);
-	createCanvas(windowWidth, windowHeight, WEBGL);
+	createCanvas(windowWidth - 150, 700, WEBGL);
 	background(100);
 	for(var i = 0; i<600; i++){
 		particles.push(new particle);
