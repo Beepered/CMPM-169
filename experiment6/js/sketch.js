@@ -7,7 +7,7 @@ function setup() {
   background(240)
   inp = createInput('')
   input_size = 150 //size of text input
-  inp.position(width / 2 - (input_size / 2), 1500)
+  inp.position(width / 2 - (input_size / 2), 1560)
   inp.size(input_size)
   inp.input(myInputEvent)
   
