@@ -1,67 +1,106 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+var inp, input_size;
+var text_size, text_length;
+var b = [];
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
-
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
-
-// Globals
-let myInstance;
-let canvasContainer;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
-
-// setup() function is called once when the program starts
 function setup() {
-    // place our canvas, making it fit our container
-    canvasContainer = $("#canvas-container");
-    let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-    canvas.parent("canvas-container");
-    // resize canvas is the page is resized
-    $(window).resize(function() {
-        console.log("Resizing...");
-        resizeCanvas(canvasContainer.width(), canvasContainer.height());
-    });
-    // create an instance of the class
-    myInstance = new MyClass(VALUE1, VALUE2);
-
-    var centerHorz = windowWidth / 2;
-    var centerVert = windowHeight / 2;
+  createCanvas(700,500)
+  background(240)
+  inp = createInput('')
+  input_size = 150 //size of text input
+  inp.position(width / 2 - (input_size / 2), 60)
+  inp.size(input_size)
+  inp.input(myInputEvent)
+  
+  for (var i = 0; i < 15; i++) {
+    b[i] = new text_block();
+  }
+  textSize(16)
 }
 
-// draw() function is called repeatedly, it's the main animation loop
-function draw() {
-    background(220);    
-    // call a method on the instance
-    myInstance.myMethod();
-
-    // Put drawings here
-    var centerHorz = canvasContainer.width() / 2 - 125;
-    var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p5*", centerHorz + 10, centerVert + 200);
+function draw(){
+  background(255 - (text_length * 15))
+  text_size = textWidth(inp.value()); //size of word
+  text_length = inp.value().length; //amount of letters
+  lineSpawn();
+  textSpawn();
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+function lineSpawn(){
+  stroke(255, 20, 0)
+  for(var i = 0; i < text_length * 3; i++){
+    strokeWeight(random(1, 4))
+    var which_x = floor(random(0, 3)); //0 = left, 1 = middle, 2 = right
+    var which_y = floor(random(0, 2)); //0 = top, 1 = bottom
+    var x, y
+    switch(which_x){
+        case(0):
+          x = 0; y = random(height)
+          break;
+        case(1):
+          x = random(width);
+          switch(which_y){
+              case(0):
+                y = 0;
+                break;
+              default:
+                y = height
+          }
+          break;
+        default:
+          x = width; y = random(height)
+    }
+    line(x, y, x + random(-10, 10) * (text_length / 2), y + random(-10, 10) * (text_length / 2));
+  }
+}
+
+function textSpawn(){
+  textSize(16 + (text_length / 2))
+  stroke(text_length * 15)
+  fill(text_length * 15);
+  for (var i = 0; i < 15; i++) {
+    b[i].update();
+  }
+}
+
+function myInputEvent() { //what happens on input
+  for (var i = 0; i < 15; i++) {
+    b[i].changeText();
+  }
+}
+
+class text_block{
+  constructor(){
+    this.x = random(30, width - 30);
+    this.y = random(30, height - 30);
+    this.mult = random(1, 4);
+    this.string = ['']
+  }
+  
+  update(){
+    text(join(this.string, ''), this.x, this.y, 400)
+    this.x += random(-0.1, 0.1) * text_size / 3;
+    this.y += random(-0.1, 0.1) * text_size / 3;
+
+    //prevent out of bounds
+    if(this.x <= 30){
+      this.x = 30
+    }
+    if(this.x >= width - text_size - 30){
+      this.x = width - text_size -  30
+    }
+    if(this.y <= 30){
+      this.y = 30
+    }
+    if(this.y >= height - 30){
+      this.y = height - 30
+    }
+  }
+  
+  changeText(){
+    this.string = [''];
+	for (var t = 0; t < inp.value().length; t++) {
+      var a = floor(random(0, inp.value().length))
+	  this.string[t] = inp.value()[a]
+	}
+  }
 }
