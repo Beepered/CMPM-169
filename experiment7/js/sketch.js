@@ -8,7 +8,7 @@ let r = 200;
 let earth;
 
 function preload() {
-  earth = loadImage('earth.jpg');
+  earth = loadImage('assets/earth.jpg');
   table0 = loadTable(
     'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.csv',
     'header'
@@ -24,7 +24,7 @@ function preload() {
   
   tables[0] = table0; tables[1] = table1; tables[2] = table2
   
-  font = loadFont('Inconsolata.otf');
+  font = loadFont('assets/Inconsolata.otf');
   
 }
 
