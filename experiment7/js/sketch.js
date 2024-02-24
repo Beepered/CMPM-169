@@ -116,3 +116,10 @@ function mousePressed(){
       break;
   }
 }
+
+function keyPressed(){
+  r += 20
+  if(r >= 360){
+    r = 200
+  }
+}

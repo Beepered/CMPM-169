@@ -32,38 +32,37 @@
 			<div class="minor-section">
 				<h2>Imitate</h2>
 				<ul>
-					<li>First I wanted to take text input. The <a href="https://openprocessing.org/sketch/2113419"> program that I took from</a> just displays the text that you typed. I did not want this to be the only program that I took from because not much is happening. I just needed text input.</li>
-					<li>I moved the text input to the middle of the screen and increased the size. The original program did not remove the letters when you "backspaced" so I cleared the background as text was typed </li>
+					<li>I didn't really understand how to do the assignment so I took an example from section. I also did not want to create a CSV file on my own and do not understand how to use an API.</li>
+					<li>The <a href="https://editor.p5js.org/codingtrain/sketches/tttPKxZi">example I took from</a> is a rotating map of the earth with where earthquakes took place.</li>
 				</ul>
 			</div>
 
 			<div class="minor-section">
 				<h2>Integrate</h2>
 				<ul>
-					<li>I wasn't sure if I wanted the text to follow the mouse, as it is too easy and too overdone. I tested out moving the text a little as you typed</li>
-					<li>I saw that when you "backspaced" the text would still move forward. I tried to find a way to move the text backwards but couldn't figure out how to get the length of the text input so I tested with changing the position randomly</li>
-					<li>I thought "what if the text shakes around a lot if there is more text and less if less text".
-						I ended up taking the textWidth() which is the width in pixels that the text takes and multiplying how much it moves by the width and constraining it to prevent it from going out of bounds</li>
-					<li>I moved the "text movement" into draw() and decreased how much it moved. Now the text vibrates erratically.</li>
-					<li>I wanted to add more so I got <a href="https://openprocessing.org/sketch/2131964">this as an example</a>. It just prints out random text and moves it randomly.</li>
-					<li>I wondered if I could do the same thing but using the letters in the text input.
-						I created a class for the text and added 15 of them to the scene. They spawn in their own random position</li>
-					<li>I tried to copy the example more by having the text randomize when you type. So each text string takes random letters from the input.</li>
+					<li>First I made the earth rotatable using the mouse position</li>
+					<li>I wanted to add another picture on top of the earth, but then I felt like it detracted from the idea of seeing earthquakes on the earth.</li>
+					<li>I wanted to try to take a <a href="https://icanhazdadjoke.com/api">dad joke API</a> and take the letters from the joke it returned but I could not do it. I only found code to print it out but not to take the result and use it</li>
 				</ul>
 			</div>
 
 			<div class="minor-section">
 				<h2>Innovate</h2>
 				<ul>
-					<li>I wanted the final result to look like a "metal" poster, but my main inspiration was "bloodshot eyes". I added random red lines with random stroke-weights. I didn't know how to make them spawn at the borders only</li>
-					<li>I made the background get darker and text get lighter as there were more letters.</li>
-					<li>I also managed to get the lines to appear at the borders to have the "bloodshot eyes" look.</li>
+					<li>I figured that instead of rotating the earth, you could just see the earthquakes on a flat image. My goal was to show the earthquakes using colors to show the intensity.</li>
+					<li>I managed to get the image of the earth after a lot of attempts at changing the images position</li>
+					<li>Then I realized I did not know how to scale the longitude and latitude with the image size, so I had to go back on my decision and use the 3D sphere.</li>
+					<li>I changed the search from just 4.5 magnitude to all earthquakes from 30 days, but when it didn't load, I switched to 7 days.</li>
+					<li>I got the boxes to change colors based on how high the magnitude was</li>
+					<li>I added 1 to the magnitude so that the boxes were not too small, but it created this one REALLY large box, but it was already larger before the change. Later, I changed it to 0.5</li>
+					<li>I made each click change which table to draw from. It goes all hour, all day, then all week. So now when you click you can see how much it changed in a week.</li>
+					<li>I also made each click change the background color to go darker and show text to display how far it is showing. I also made it so that any key pressed would zoom in until the zoom was too much then it would reset.</li>
 				</ul>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>I worked on everything on my own again. The finished version is how I thought it would be like when I first imagined it. It feels nice to just type random stuff and watch it bounce around the screen</p>
+				<p>I did everything on my own again. This assignment was the hardest because I did not know what to do. I had never worked with APIs or CSV files and thought that we had to make our own. My only idea before using the earth was to take every letter from something and put it on a graph. The final result is pretty cool and looks official.</p>
 			</div>
 
 			<div class="minor-section">
