@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Data Visualization</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+	<!-- Use me for a JavaScript OOP Project -->
+	<script type="text/javascript" src="./js/project.js" DEFER></script>
+	<!-- Use me for a p5.js project -->
+	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+			<h1>Experiment 7 - Data Visualization</h1>
+			<div class="minor-section">
+				<h2>Imitate</h2>
+				<ul>
+					<li>First I wanted to take text input. The <a href="https://openprocessing.org/sketch/2113419"> program that I took from</a> just displays the text that you typed. I did not want this to be the only program that I took from because not much is happening. I just needed text input.</li>
+					<li>I moved the text input to the middle of the screen and increased the size. The original program did not remove the letters when you "backspaced" so I cleared the background as text was typed </li>
+				</ul>
+			</div>
+
+			<div class="minor-section">
+				<h2>Integrate</h2>
+				<ul>
+					<li>I wasn't sure if I wanted the text to follow the mouse, as it is too easy and too overdone. I tested out moving the text a little as you typed</li>
+					<li>I saw that when you "backspaced" the text would still move forward. I tried to find a way to move the text backwards but couldn't figure out how to get the length of the text input so I tested with changing the position randomly</li>
+					<li>I thought "what if the text shakes around a lot if there is more text and less if less text".
+						I ended up taking the textWidth() which is the width in pixels that the text takes and multiplying how much it moves by the width and constraining it to prevent it from going out of bounds</li>
+					<li>I moved the "text movement" into draw() and decreased how much it moved. Now the text vibrates erratically.</li>
+					<li>I wanted to add more so I got <a href="https://openprocessing.org/sketch/2131964">this as an example</a>. It just prints out random text and moves it randomly.</li>
+					<li>I wondered if I could do the same thing but using the letters in the text input.
+						I created a class for the text and added 15 of them to the scene. They spawn in their own random position</li>
+					<li>I tried to copy the example more by having the text randomize when you type. So each text string takes random letters from the input.</li>
+				</ul>
+			</div>
+
+			<div class="minor-section">
+				<h2>Innovate</h2>
+				<ul>
+					<li>I wanted the final result to look like a "metal" poster, but my main inspiration was "bloodshot eyes". I added random red lines with random stroke-weights. I didn't know how to make them spawn at the borders only</li>
+					<li>I made the background get darker and text get lighter as there were more letters.</li>
+					<li>I also managed to get the lines to appear at the borders to have the "bloodshot eyes" look.</li>
+				</ul>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>I worked on everything on my own again. The finished version is how I thought it would be like when I first imagined it. It feels nice to just type random stuff and watch it bounce around the screen</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Results</h2>
+				<div id="canvas-container">
+					<!-- canvas will be added here -->
+				</div>
+			</div>
+		</section>
+		<nav id="links">
+			<!-- Put links to other pages (including the homepage) here. -->
+			<a href="../index.html">Back to Home</a>
+		</nav>
+	</main>
+</body>
+</html>
