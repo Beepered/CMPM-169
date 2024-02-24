@@ -8,7 +8,7 @@ let r = 200;
 let earth;
 
 function preload() {
-  earth = loadImage('assets/earth.jpg');
+  earth = loadImage('earth.jpg');
   table0 = loadTable(
     'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.csv',
     'header'
@@ -24,24 +24,25 @@ function preload() {
   
   tables[0] = table0; tables[1] = table1; tables[2] = table2
   
-  font = loadFont('assets/Inconsolata.otf');
+  font = loadFont('Inconsolata.otf');
   
 }
 
 function setup() {
-  createCanvas(600, 600, WEBGL);
+  createCanvas(700, 600, WEBGL);
 }
 
 function draw() {
   background(color);
-    
+  
   textFont(font);
   textSize(25);
-  text('Earthquakes from past ' + date_text, -width / 4, -height / 2.5);
+  text('Earthquakes from past ' + date_text, -width / 4.5, -height / 2.4);
+  
   rotateY(-mouseX / 70);
   rotateX(mouseY / 70);
   
-  lights();
+  //lights();
   noStroke();
   texture(earth);
   sphere(r);
@@ -49,7 +50,7 @@ function draw() {
   for (let row of tables[choice].rows) {
     let lat = row.getNum('latitude');
     let lon = row.getNum('longitude');
-    let mag = row.getNum('mag');
+    let magnitude = row.getNum('mag');
 
     let theta = radians(lat);
 
@@ -61,8 +62,8 @@ function draw() {
 
     let pos = createVector(x, y, z);
 
-    mag += 0.5
-    let h = pow(10, mag);
+    magnitude += 0.5
+    let h = pow(10, magnitude);
     let maxh = pow(10, 7);
     h = map(h, 0, maxh, 10, 100);
     let xaxis = createVector(1, 0, 0);
@@ -74,19 +75,19 @@ function draw() {
     push(); //boxes on earth
     translate(x, y, z);
     rotate(angleb, raxis);
-    if(mag < 1){
+    if(magnitude < 1){
       fill(255, 255, 255)
     }
-    else if(mag < 2){
+    else if(magnitude < 2){
       fill(255, 170, 130)
     }
-    else if(mag < 3){
+    else if(magnitude < 3){
       fill(255, 130, 90)
     }
-    else if(mag < 4){
+    else if(magnitude < 4){
       fill(255, 90, 50)
     }
-    else if(mag < 5){
+    else if(magnitude < 5){
       fill(255, 50, 0)
     }
     else{
