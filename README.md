@@ -1,3 +1,5 @@
+https://beepered.github.io/CMPM-169/
+
 # Creative Coding Template
 File template for creative coding, with focus on p5.js.
 
